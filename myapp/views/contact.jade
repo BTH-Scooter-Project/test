@@ -5,14 +5,24 @@ block content
     div.cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
       header.mb-auto
         div
-          h3.float-md-start.md-0 Contact
+          h3.float-md-start.md-0 Home
           nav.nav.nav-masthead.justify-content-center.float-md-end
             a(href='/').nav-link Home
             a.nav-link Features
-            a.nav-link.active Contact
-      main.px-3
-        p.lead Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
-        p.lead
-          a(href='#').btn.btn-lg.btn-secondary.fw-bold.border-white.bg-white Contact Established
-      footer.mt-auto.text-white-50
-        p Cover template for test.
+            a(href='/contact').nav-link.active Contact
+      main.form-signin
+        form
+          img.mb-4(src="")
+          h1.h3.mb-3.fw-normal  Sign in
+          div.form-floating
+            input.form-control#floatingInput(type="email" placeholder="name@example.com")
+            label(for="floatingInput") Email address
+          div.form-floating
+            input.form-control#floatingPassword(type="password" placeholder="Password")
+            label(for="floatingPassword") Password
+          div.checkbox.mb-3
+            label(type="checkbox" value="remember-me") Remember me
+          button.w-100.btn.btn-lg.btn-primary(type="submit") Sign in
+          p.mt-5.mb-3.text-muted © 2017–2021
+        footer.mt-auto.text-white-50
+          p Cover template for test.
