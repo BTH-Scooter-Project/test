@@ -11,14 +11,14 @@ block content
             a(href='/features').nav-link Features
             a(href='/contact').nav-link.active Contact
       main.form-signin
-        form
+        form(method="POST", action="/contact")
           img.mb-4(src="")
           h1.h3.mb-3.fw-normal  Sign in
           div.form-floating
-            input.form-control#floatingInput(type="email" placeholder="name@example.com")
+            input.form-control#floatingInput(type="email" name="email" placeholder="name@example.com")
             label(for="floatingInput") Email address
           div.form-floating
-            input.form-control#floatingPassword(type="password" placeholder="Password")
+            input.form-control#floatingPassword(type="password" name="password" placeholder="Password")
             label(for="floatingPassword") Password
           div.checkbox.mb-3
             label(type="checkbox" value="remember-me") Remember me
