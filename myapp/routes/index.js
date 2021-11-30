@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const bike = require("../public/models/bike.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,7 +26,15 @@ router.post('/contact', function(req, res) {
 });
 
 router.get('/features', function(req, res, next) {
-  res.render('features', { title: 'Express'});
+  res.render('features', {
+    title: 'Express',
+    bikeId: 'Bike_Id',
+    bikeCoords:'Bike_Coords',
+    bikeBattery: 'Bike_Battery',
+    travelCost: 'Travel_Cost'
+  });
 });
+
+router.get('/:id', (req, res) => bike.getSpecificBike(res, req));
 
 module.exports = router;

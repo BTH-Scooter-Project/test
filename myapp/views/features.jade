@@ -12,9 +12,12 @@ block content
             a(href='/contact').nav-link Contact
             div#map.map
               script.
-                  var map = L.map('map',{ center: [56.181932, 15.590525], zoom: 20});
-
-                  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: `&copy; contributors`}).addTo(map);
+                  map();
+            div
+              h1= bikeId
+              h1= bikeCoords
+              h1= bikeBattery
+              h1= travelCost
 
         footer.mt-auto.text-white-50
           p Cover template for test.
