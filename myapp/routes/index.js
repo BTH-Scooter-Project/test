@@ -29,7 +29,7 @@ router.get('/features', function(req, res, next) {
   res.render('features', {
     title: 'Express',
     bikeId: 'Bike_Id',
-    bikeCoords:'Bike_Coords',
+    bikeCoords: '[51.509865, -0.118092]',
     bikeBattery: 'Bike_Battery',
     travelCost: 'Travel_Cost'
   });

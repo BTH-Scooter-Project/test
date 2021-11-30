@@ -12,12 +12,10 @@ block content
             a(href='/contact').nav-link Contact
             div#map.map
               script.
-                  map();
+                  map(#{bikeCoords});
             div
               h1= bikeId
               h1= bikeCoords
               h1= bikeBattery
               h1= travelCost
-
-        footer.mt-auto.text-white-50
-          p Cover template for test.
+              button.btn-added-red.w-100.btn.btn-lg.btn-primary(type="submit") Rent
