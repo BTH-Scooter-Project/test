@@ -5,15 +5,16 @@ block content
     div.cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
       header.mb-auto
         div
-          h3.float-md-start.md-0 Home
+          h3.float-md-start.md-0 Map
           nav.nav.nav-masthead.justify-content-center.float-md-end
             a(href='/').nav-link Home
             a.nav-link.active Features
             a(href='/contact').nav-link Contact
             div#map.map
               script.
-                  map(#{bikeCoords});
-            div
+                  // map(#{bikeCoords});
+                  getLocation();
+            footer.mt-auto.text-white-50
               h1= bikeId
               h1= bikeCoords
               h1= bikeBattery

@@ -93,13 +93,13 @@ body {
 }
 
 #map {
-    width: 800px;
+    width: 500px;
     height: 400px;
 }
 /*THIS MODIFIES BOOTSTRAP BTN ATTRIBUTE*/
 .btn-added-red {
     background-color: crimson;
-    border-color: crimson;
+    border-color: red;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {

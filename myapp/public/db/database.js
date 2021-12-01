@@ -1,3 +1,5 @@
+//IMPORTED FROM EMMA
+
 const sqlite3 = require('sqlite3').verbose();
 
 const database = {

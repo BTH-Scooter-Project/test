@@ -1,3 +1,5 @@
+// IMPORTED FROM EMMA
+
 const database = require("../db/database.js");
 
 const bike = {
