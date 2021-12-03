@@ -1,38 +1,81 @@
 var map = null;
 //CREATING MAP FUNCTION
 function crtmap(coords=[56.181932, 15.590525]) {
-  map = L.map('map').setView(coords, 20);
+  map = L.map('map').setView(coords, 18);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: `&copy; contributors`}).addTo(map);
-}
-
-//GET COORDINATES FROM DEVICE
-function getPosition() {
-    return new Promise((res, rej) => {
-    	navigator.geolocation.watchPosition(res, rej)
-    });
-}
-
-//THIS WILL GIVE ME THE USERS CURRENT COORDINATES
-//COORDINATES WILL THEN BE USED TO ESTABLISH THE MAP
-async function getLocation() {
-    var temp = [56.181932, 15.590525];
-    var crd = await getPosition();
-    temp = [crd.coords.latitude, crd.coords.longitude];
-    var map = L.map('map',{ center: temp, zoom: 20});
-
-    console.log(`[${crd.coords.latitude}, ${crd.coords.longitude}]`);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: `&copy; contributors`}).addTo(map);
 }
 
 //NOW FLYING TO CURRENT POSITION. !!MIGHT CAUSE ISSUES!!
 function success(pos){
     var crd = pos.coords;
     map.flyTo([crd.latitude, crd.longitude]);
+    addBike([crd.latitude, crd.longitude]);
 }
 
-function test() {
-    navigator.geolocation.watchPosition(success);
+function addBike(pos){
+    //orangeIcon(pos);
+    L.marker(pos).addTo(map)
+      .bindPopup('Your position.');
+
+    var circle = L.circle(pos, {
+        color: 'blue',
+        fillColor: 'blue',
+        fillOpacity: 0.5,
+        radius: 20
+    }).addTo(map);
+
+    addTempBikes();
+    console.log(document.getElementById("map"));
+}
+
+function crtMap() {
+    navigator.geolocation.getCurrentPosition(success);
     crtmap();
+}
+
+function addTempBikes() {
+    var bikes = {};
+    var data = [
+      ['1', 56.170863,15.583974],
+      ['2', 56.171267,15.583796],
+      ['3', 56.171258,15.582991],
+      ['4', 56.170974,15.584279],
+      ['5', 56.170971,15.584333]
+    ];
+
+    data.forEach(function(item){
+        var id = item[0];
+        var latLng = L.latLng(item[1], item[2]);
+        bikes[id] = new L.marker(latLng, {id: id, coords:latLng}).addTo(map)
+          .on('click', onClick)
+          .bindPopup(`Test Bike ${id}.`);
+    });
+
+    console.log(bikes['1']);
+}
+
+var activeClicked = null;
+
+function onClick(e) {
+    console.log(this.options);
+    activeClicked = this.options.id;
+    document.getElementsByClassName('bike_Id')[0].innerHTML = this.options.id;
+    document.getElementsByClassName('bikeId')[0].value = this.options.id;
+    var temp = this.options.coords.toString();
+    document.getElementsByClassName('bike_Coords')[0].innerHTML = temp.slice(7, -1);
+    document.getElementsByClassName('bikeCoords')[0].value = temp.slice(7, -1);
+    document.getElementById('rentBtn').hidden=false;
+}
+
+function orangeIcon(pos){
+    var orangeIcon = L.icon({
+        iconUrl: 'images/orangeIcon.png'
+    });
+    L.marker(pos, {icon: orangeIcon}).addTo(map)
+      .bindPopup('Your position.');
+}
+
+function rent() {
+    console.log("clicked", activeClicked);
 }

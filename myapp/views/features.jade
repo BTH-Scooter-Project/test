@@ -14,10 +14,13 @@ block content
               script.
                   //map(#{bikeCoords});
                   //getLocation();
-                  test();
+                  crtMap();
             footer.mt-auto.text-white-50
-              h1= bikeId
-              h1= bikeCoords
-              h1= bikeBattery
-              h1= travelCost
-              button.btn-added-red.w-100.btn.btn-lg.btn-primary(type="submit") Rent
+            form(method="POST", action="/features")
+              h1.bike_Id(name='bike_Id')= bikeId
+              input.bikeId(type="hidden", name='bikeId', value=bikeId)= bikeId
+              h1.bike_Coords(name='bike_Coords')= bikeCoords
+              input.bikeCoords(type="hidden", name='bikeCoords', value=bikeCoords)
+              //h1.bikeBattery= bikeBattery
+              //h1.travelCost= travelCost
+              button#rentBtn.btn-added-red.w-100.btn.btn-lg.btn-primary(type="submit", onclick="rent()", hidden="hidden") Rent
