@@ -7,14 +7,13 @@ block content
         div
           h3.float-md-start.md-0 Home (QR)
           nav.nav.nav-masthead.justify-content-center.float-md-end
-            a.nav-link.active Home
-            a(href='/features').nav-link Features
-            a(href='/contact').nav-link Contact
       main.px-3
+        script.
+          timer();
         h1.bikeId= bId
         h1.bikeCoords= bCrd
         h1.crtEmail= usr
         p.lead
-          a(href='#').btn.btn-lg.btn-secondary.fw-bold.border-white.bg-white Return
+          a(href='#').btn.btn-lg.btn-secondary.fw-bold.border-white.bg-white(onclick="endRent()") Return
       footer.mt-auto.text-white-50
         p Cover template for test.

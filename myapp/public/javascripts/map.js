@@ -79,3 +79,14 @@ function orangeIcon(pos){
 function rent() {
     console.log("clicked", activeClicked);
 }
+
+var start
+
+function timer() {
+    start = Date.now();
+}
+
+function endRent() {
+    var millis = Date.now() - start;
+    console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`);
+}
