@@ -34,6 +34,27 @@ function crtMap() {
     crtmap();
 }
 
+function customer(pos){
+    map.flyTo([crd.latitude, crd.longitude]);
+    L.marker([crd.latitude, crd.longitude]).addTo(map)
+      .bindPopup('Your position.');
+
+    var circle = L.circle([crd.latitude, crd.longitude], {
+        color: 'blue',
+        fillColor: 'blue',
+        fillOpacity: 0.5,
+        radius: 20
+    }).addTo(map);
+}
+
+function crtMap2(lat, long) {
+    //console.log(`[${lat}, ${long}]`);
+    crtmap([lat, long]);
+    L.marker([lat, long]).addTo(map)
+      .bindPopup('Your position.');
+}
+
+
 function addTempBikes() {
     var bikes = {};
     var data = [

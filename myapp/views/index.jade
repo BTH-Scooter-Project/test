@@ -7,9 +7,11 @@ block content
         div
           h3.float-md-start.md-0 Home (QR)
           nav.nav.nav-masthead.justify-content-center.float-md-end
-      main.px-3
-        script.
-          timer();
+            div#map.map
+              script.
+                timer();
+                crtMap2(#{bCrd});
+                //console.log(#{bCrd});
         h1.bikeId= bId
         h1.bikeCoords= bCrd
         h1.crtEmail= usr

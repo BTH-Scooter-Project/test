@@ -9,12 +9,6 @@ var password = null;
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if(token != null) {
-        res.render('index', {
-            title: "TEST",
-            bId: "Wrong",
-            bCrd: "way",
-            usr: email
-        });
     } else {
       res.redirect('/contact');
     }
