@@ -57,6 +57,7 @@ function crtMap2(lat, long) {
 
 function addTempBikes() {
     var bikes = {};
+    /*
     var data = [
       ['1', 56.170863,15.583974],
       ['2', 56.171267,15.583796],
@@ -64,7 +65,8 @@ function addTempBikes() {
       ['4', 56.170974,15.584279],
       ['5', 56.170971,15.584333]
     ];
-
+    */
+    data = ranBike();
     data.forEach(function(item){
         var id = item[0];
         var latLng = L.latLng(item[1], item[2]);
@@ -110,4 +112,15 @@ function timer() {
 function endRent() {
     var millis = Date.now() - start;
     console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`);
+}
+
+function ranBike() {
+    var lat = 56.16156;
+    var lng = 15.58661;
+    var arr = [];
+
+    for (var i = 0; i < 200; i++) {
+        arr.push([i, (lat+Math.random() * (0.019 - 0.001)).toFixed(4), (lng+Math.random() * (0.039 - 0.001)).toFixed(4)]);
+    }
+    return arr;
 }
