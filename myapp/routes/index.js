@@ -1,39 +1,31 @@
 var express = require('express');
 var router = express.Router();
-const bike = require("../public/models/bike.js");
-//var session = require('express-session');
+
 var token = null;
 var email = null;
 var password = null;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    if(token != null) {
-    } else {
-      res.redirect('/contact');
-    }
+  res.render('index', { title: 'Express' });
 });
-//RENDER LOGIN
-router.get('/contact', function(req, res, next) {
-  res.render('contact', { title: 'Express' });
-});
-//LOGIN FORM
-router.post('/contact', function(req, res) {
+
+router.post('/', function(req, res) {
   email = req.body.email;
   password = req.body.password;
   console.log("test");
   if(email=="Test@home.se" && password=="test") {
     token = "aBcD1234";
-    res.redirect('/features');
+    res.redirect('/map');
   } else {
     res.redirect('/');
   }
-  //res.send( `Email: ${email} Password: ${password}`);
 });
+
 //BIKE RENTAL PAGE
-router.get('/features', function(req, res, next) {
+router.get('/map', function(req, res, next) {
   if(token != null) {
-      res.render('features', {
+      res.render('map', {
         title: 'Express',
         bikeId: 'Click Bike',
         bikeCoords: '',
@@ -41,14 +33,15 @@ router.get('/features', function(req, res, next) {
         travelCost: 'Test_Cost'
       });
   } else {
-      res.redirect('/contact');
+      res.redirect('/');
   }
 });
+
 //BIKE RENT INFORMATION
-router.post('/features', function(req, res) {
+router.post('/map', function(req, res) {
   if(token != null) {
     //console.log(req.body.bikeCoords);
-    res.render('index', {
+    res.render('rental', {
       title: req.body.bikeId,
       bId: req.body.bikeId,
       bCrd: req.body.bikeCoords,
@@ -56,10 +49,8 @@ router.post('/features', function(req, res) {
     });
   } else {
     console.log("Error");
-    res.redirect('/contact');
+    res.redirect('/');
   }
 });
-
-router.get('/:id', (req, res) => bike.getSpecificBike(res, req));
 
 module.exports = router;

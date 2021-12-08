@@ -48,6 +48,7 @@ function customer(pos){
 }
 
 function crtMap2(lat, long) {
+    //console.log(`[${lat}, ${long}]`);
     crtmap([lat, long]);
     L.marker([lat, long]).addTo(map)
       .bindPopup('Your position.');
@@ -56,12 +57,12 @@ function crtMap2(lat, long) {
 
 function addTempBikes() {
     var bikes = {};
-
+    var image = "scooter.jpg";
     data = ranBike();
     data.forEach(function(item){
         var id = item[0];
         var latLng = L.latLng(item[1], item[2]);
-        bikes[id] = new L.marker(latLng, {id: id, coords:latLng}).addTo(map)
+        bikes[id] = new L.marker(latLng, {id: id, coords:latLng, img:image}).addTo(map)
           .on('click', onClick)
           .bindPopup(`Test Bike ${id}.`);
     });
@@ -80,6 +81,7 @@ function onClick(e) {
     document.getElementsByClassName('bike_Coords')[0].innerHTML = temp.slice(7, -1);
     document.getElementsByClassName('bikeCoords')[0].value = temp.slice(7, -1);
     document.getElementById('rentBtn').hidden=false;
+    document.getElementById('bike_Img').innerHTML = "<img class=orange src=images/"+this.options.img+">";
 }
 
 function orangeIcon(pos){

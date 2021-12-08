@@ -107,3 +107,16 @@ body {
     background-color: green;
     border-color: lime; /*set the color you want here*/
 }
+
+.scooter {
+    height: 3em;
+    padding-bottom: 1em;
+}
+
+.orange {
+    height: 5em;
+}
+
+.mapflow {
+    overflow-y: auto;
+}
