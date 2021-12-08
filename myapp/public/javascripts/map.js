@@ -48,7 +48,6 @@ function customer(pos){
 }
 
 function crtMap2(lat, long) {
-    //console.log(`[${lat}, ${long}]`);
     crtmap([lat, long]);
     L.marker([lat, long]).addTo(map)
       .bindPopup('Your position.');
@@ -57,15 +56,7 @@ function crtMap2(lat, long) {
 
 function addTempBikes() {
     var bikes = {};
-    /*
-    var data = [
-      ['1', 56.170863,15.583974],
-      ['2', 56.171267,15.583796],
-      ['3', 56.171258,15.582991],
-      ['4', 56.170974,15.584279],
-      ['5', 56.170971,15.584333]
-    ];
-    */
+
     data = ranBike();
     data.forEach(function(item){
         var id = item[0];
