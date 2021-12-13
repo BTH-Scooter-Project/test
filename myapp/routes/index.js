@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
+var apiAdr = "http://localhost:1337";
+var apiKey = "90301a26-894c-49eb-826d-ae0c2b22a405";
 var token = null;
 var email = null;
 var password = null;
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express'});
 });
 
 router.post('/', function(req, res) {
@@ -25,13 +29,23 @@ router.post('/', function(req, res) {
 //BIKE RENTAL PAGE
 router.get('/map', function(req, res, next) {
   if(token != null) {
-      res.render('map', {
-        title: 'Express',
-        bikeId: 'Click Bike',
-        bikeCoords: '',
-        bikeBattery: 'Test_Battery',
-        travelCost: 'Test_Cost'
-      });
+      request(`${apiAdr}/v1/city/2/bike?apiKey=${apiKey}`, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          var data = JSON.parse(body);
+          //console.log(data);
+          res.render('map', {
+            title: 'test',
+            bikeId: 'Click Bike',
+            bikeCoords: '',
+            bikeBattery: '',
+            travelCost: 'Test_Cost',
+            dataPack: data
+          });
+        } else {
+          console.log('Api not available');
+          res.render('map');
+        }
+      })
   } else {
       res.redirect('/');
   }

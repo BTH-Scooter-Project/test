@@ -93,8 +93,8 @@ body {
 }
 
 #map {
-    width: 500px;
-    height: 400px;
+    /*width: 54em;*/
+    height: 24em;
 }
 /*THIS MODIFIES BOOTSTRAP BTN ATTRIBUTE*/
 .btn-added-red {
@@ -115,8 +115,17 @@ body {
 
 .orange {
     height: 5em;
+    margin-top: 0.2em;
 }
 
 .mapflow {
-    overflow-y: auto;
+    overflow-y:auto;
+}
+
+.qr {
+    height: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
