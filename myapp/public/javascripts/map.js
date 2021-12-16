@@ -78,6 +78,7 @@ function addTempBikes() {
 function addBikes(dataPack) {
     var bikes = {};
     var id = 0;
+    //console.log(dataPack.data);
 
     dataPack.data.forEach(function(item){
         if(item.status === 'vacant'){
@@ -99,11 +100,12 @@ function addBikes(dataPack) {
 var activeClicked = null;
 
 function bikeClick(e) {
-    //console.log(this.options);
+    console.log(this.options);
     var temp = this.options.coords.toString();
+    var temp2 =  this.options.name;
 
-    document.getElementsByClassName('bike_Id')[0].innerHTML = this.options.name;
-    document.getElementsByClassName('bikeId')[0].value = this.options.name;
+    document.getElementsByClassName('bike_Id')[0].innerHTML = temp2.slice(4);
+    document.getElementsByClassName('bikeId')[0].value = temp2.slice(4);
     document.getElementsByClassName('bike_Desc')[0].innerHTML = this.options.description;
     document.getElementsByClassName('bikeDesc')[0].value = this.options.description;
     document.getElementsByClassName('bike_Battery')[0].innerHTML = this.options.battery_level+"/7500";

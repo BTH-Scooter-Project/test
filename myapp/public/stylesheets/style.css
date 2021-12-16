@@ -87,7 +87,6 @@ body {
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -128,4 +127,34 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+.form-signin {
+    margin-top: 0em;
+}
+
+.form-control {
+    border-radius: 0em;
+}
+
+.form-select {
+    width: 100%;
+    height: calc(3.5rem + 2px);
+}
+
+.form-format-top {
+    border-radius: 5px 5px 0px 0px;
+}
+
+.form-format-bottom {
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: 1em;
+}
+
+.form-floating {
+/*    padding-bottom: 1em; */
+}
+
+.cmplt-btn {
+    margin-top: 10px;
 }

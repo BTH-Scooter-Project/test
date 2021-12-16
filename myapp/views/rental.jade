@@ -13,9 +13,11 @@ block content
               timer();
               crtMap2(#{bCrd});
               //console.log(#{bCrd});
+      form(method="POST", action="/rental")
         h1.bikeId= bId
+        input.bikeId(type="hidden", name='bikeId', value=bId)
         h1.bikeCoords= bCrd
         h1.crtEmail= usr
-        a(href='#').btn.btn-lg.btn-secondary.fw-bold.border-white.bg-white(onclick="endRent()") Return
+        button#rentBtn.btn-added-red.w-100.btn.btn-lg.btn-primary(type="submit") Return
       footer.mt-auto.text-white-50
         p Cover template for test.
