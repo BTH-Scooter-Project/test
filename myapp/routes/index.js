@@ -9,6 +9,7 @@ var token = null;
 var email = null;
 var city = null;
 
+serverUp();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,12 +35,16 @@ router.post('/register', async function(req, res) {
     }
   })
   .then(response => {
-      console.log(response.data);
+      //console.log(response.data);
       res.redirect('/');
   })
   .catch(error => {
-      console.log(error.response);
-      res.redirect('/register');
+      //console.log(error.response);
+      if(error.response !== undefined) {
+          res.render('register', {msg: error.response.data.errors.message});
+      } else {
+          res.render('register', {msg: "Server down!"});
+      }
   });
 });
 
@@ -58,12 +63,17 @@ router.post('/', function(req, res) {
   .then(response => {
       token = response.data.data.token;
       email = response.data.data.user;
-      console.log(response.data.data);
+      //console.log(response.data);
       res.redirect('/map');
   })
   .catch(error => {
-      console.log(error.response);
-      res.redirect('/');
+      //console.log(error.response.data.errors.title);
+      //console.log(error);
+      if(error.response !== undefined) {
+          res.render('index', {msg: error.response.data.errors.title});
+      } else {
+          res.render('index', {msg: "Server down!"});
+      }
   });
 });
 
@@ -74,7 +84,7 @@ router.get('/map', function(req, res, next) {
       request(`${apiAdr}/v1/city/2/bike?apiKey=${apiKey}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           var data = JSON.parse(body);
-          cities();
+          //cities();
           res.render('map', {
             title: 'test',
             bikeId: 'Click Bike',
@@ -115,8 +125,11 @@ router.post('/map', function(req, res) {
         });
     })
     .catch(error => {
-        console.log(error.response);
-        res.redirect('/');
+        if(error.response !== undefined) {
+            res.render('index', {msg: error.response.data.errors.title});
+        } else {
+            res.render('index', {msg: "Server down!"});
+        }
     });
   }
 });
@@ -170,6 +183,34 @@ function cities(){
       console.log('Api not available');
     }
   })
+}
+
+function serverUp(){
+  request(`${apiAdr}/v1/city?apiKey=${apiKey}`, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        apiAdr = "http://localhost:1337";
+        console.log("Server is up");
+      } else {
+        apiAdr = "server:1337";
+        console.log("Server down");
+    }
+  })
+}
+
+function userRequest(userId) {
+  axios({
+    method: 'get',
+    headers: {
+        "x-access-token": token
+    },
+    url: `${apiAdr}/v1/travel/rented?apiKey=${apiKey}`
+  })
+  .then(response => {
+      console.log(response.data);
+  })
+  .catch(error => {
+      console.log(error.response);
+  });
 }
 
 function rentQueue(){
