@@ -75,9 +75,10 @@ function addTempBikes() {
     console.log(bikes['1']);
 }
 
-function addBikes(dataPack) {
+function addBikes2(dataPack) {
     var bikes = {};
     var id = 0;
+    var markers = L.markerClusterGroup();
     //console.log(dataPack.data);
 
     dataPack.data.forEach(function(item){
@@ -93,8 +94,31 @@ function addBikes(dataPack) {
               .bindPopup(`Bike ${id} ${image}`)
             id+=1;
         }
-        //console.log(item);
     })
+    markers.addLayer(bikes);
+    map.addLayer(markers);
+}
+
+function addBikes(dataPack) {
+    var bikes = {};
+    var id = 0;
+    var markers = L.markerClusterGroup();
+    //console.log(dataPack.data);
+
+    dataPack.data.forEach(function(item){
+        if(item.status === 'vacant'){
+            var latLng = L.latLng(item.gps_lat, item.gps_lon);
+            var image = `<img class=qr src=/images/${item.image}>`;
+            markers.addLayer(L.marker(latLng, {name: item.name,
+               description: item.description,
+               battery_level: item.battery_level,
+               coords: latLng })
+              .on('click', bikeClick)
+              .bindPopup(`Bike ${id} ${image}`));
+            id+=1;
+        }
+    })
+    map.addLayer(markers);
 }
 
 var activeClicked = null;

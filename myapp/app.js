@@ -24,6 +24,8 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist'))); // redirect JS jQuery
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css'))); // redirect CSS bootstrap
 
+app.use('/clstr', express.static(path.join(__dirname, '/node_modules/leaflet.markercluster/dist'))); // redirect CSS bootstrap
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

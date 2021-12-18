@@ -158,3 +158,38 @@ body {
 .cmplt-btn {
     margin-top: 10px;
 }
+
+
+/* MAP CLUSTERS */
+.marker-cluster {
+    background: rgba(255, 0, 0, 0.2);
+    border-radius: 2em;
+}
+
+.marker-cluster span {
+    text-align: center;
+    line-height: 30px;
+    text-shadow: 1px 1px black;
+}
+
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.marker-cluster-small div {
+    background-color: rgba(110, 204, 57, 0.6);
+}
+
+.marker-cluster-medium div {
+    background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large div {
+    background-color: rgba(241, 128, 23, 0.6);
+}
