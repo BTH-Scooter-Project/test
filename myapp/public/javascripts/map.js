@@ -46,13 +46,15 @@ function customer(pos){
         color: 'blue',
         fillColor: 'blue',
         fillOpacity: 0.5,
-        radius: 20
+        radius: 50
     }).addTo(map);
 }
 
-function crtMap2(lat, long) {
+function crtMap2(lat, long, dataPack) {
     //console.log(`[${lat}, ${long}]`);
     crtmap([lat, long]);
+    console.log(dataPack.data);
+    addStations(dataPack.data);
     L.marker([lat, long]).addTo(map)
       .bindPopup('Your position.');
 }
@@ -99,6 +101,29 @@ function addBikes2(dataPack) {
     map.addLayer(markers);
 }
 
+function addStations(dataPack) {
+    var stations = {};
+    var id = 0;
+    var markers = L.markerClusterGroup();
+    //console.log(dataPack.data);
+
+    dataPack.forEach(function(item){
+        if(item.type === 'parking'){
+            var latLng = L.latLng(item.gps_lat, item.gps_lon);
+            markers.addLayer(L.circle(latLng, {
+              color: 'blue',
+              fillColor: 'blue',
+              fillOpacity: 0.5,
+              radius: 20,
+              description: item.address,
+              id: item.stationid
+            }).bindPopup(`Station: ${item.stationid}, Adress: ${item.address}`));
+            id+=1;
+        }
+    })
+    map.addLayer(markers);
+}
+
 function addBikes(dataPack) {
     var bikes = {};
     var id = 0;
@@ -132,7 +157,7 @@ function bikeClick(e) {
     document.getElementsByClassName('bikeId')[0].value = temp2.slice(4);
     document.getElementsByClassName('bike_Desc')[0].innerHTML = this.options.description;
     document.getElementsByClassName('bikeDesc')[0].value = this.options.description;
-    document.getElementsByClassName('bike_Battery')[0].innerHTML = this.options.battery_level+"/7500";
+    document.getElementsByClassName('bike_Battery')[0].innerHTML = this.options.battery_level+"/10000";
     document.getElementsByClassName('bikeBattery')[0].value = this.options.battery_level;
     document.getElementsByClassName('bikeCoords')[0].value = temp.slice(7, -1);
     document.getElementById('rentBtn').hidden=false;

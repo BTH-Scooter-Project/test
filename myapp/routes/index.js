@@ -8,21 +8,23 @@ var apiKey = "90301a26-894c-49eb-826d-ae0c2b22a405";
 var token = null;
 var email = null;
 var city = null;
+//var userId = null;
 
 serverUp();
 
-/* GET home page. */
+// GET LOGIN PAGE
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express'});
 });
 
+// GET REGISTER PAGE
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Register'});
 });
 
-//REGISTER USER
-router.post('/register', async function(req, res) {
-  //console.log(req.body)
+//REGISTER CALL
+router.post('/register', function(req, res) {
+  //console.log(req.body.cityid);
   axios({
     method: 'post',
     url: `${apiAdr}/v1/auth/customer?apiKey=${apiKey}`,
@@ -48,7 +50,7 @@ router.post('/register', async function(req, res) {
   });
 });
 
-//LOGIN
+//LOGIN CALL
 router.post('/', function(req, res) {
   //console.log(req.body.username);
   var temp = JSON.stringify({email: req.body.email})
@@ -61,13 +63,14 @@ router.post('/', function(req, res) {
     }
   })
   .then(response => {
+      //console.log(response.data.data.id);
       token = response.data.data.token;
       email = response.data.data.user;
-      //console.log(response.data);
-      res.redirect('/map');
+      getUser(response.data.data.id).then(response => {
+        city = response;
+        res.redirect('/map')});
   })
   .catch(error => {
-      //console.log(error.response.data.errors.title);
       //console.log(error);
       if(error.response !== undefined) {
           res.render('index', {msg: error.response.data.errors.title});
@@ -78,13 +81,13 @@ router.post('/', function(req, res) {
 });
 
 
-//BIKE RENTAL PAGE
+//BIKE RENTAL MAP
 router.get('/map', function(req, res, next) {
+  console.log("mapcall"+city);
   if(token != null) {
-      request(`${apiAdr}/v1/city/2/bike?apiKey=${apiKey}`, function (error, response, body) {
+      request(`${apiAdr}/v1/city/${city}/bike?apiKey=${apiKey}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           var data = JSON.parse(body);
-          //cities();
           res.render('map', {
             title: 'test',
             bikeId: 'Click Bike',
@@ -94,7 +97,7 @@ router.get('/map', function(req, res, next) {
           });
         } else {
           console.log('Api not available');
-          res.render('map');
+          res.render('index');
         }
       })
   } else {
@@ -103,7 +106,7 @@ router.get('/map', function(req, res, next) {
 });
 
 
-//RENTAL CALL
+//RENTAL CALL START
 router.post('/map', function(req, res) {
   if(token != null) {
     console.log(req.body.bikeId);
@@ -115,13 +118,16 @@ router.post('/map', function(req, res) {
       url: `${apiAdr}/v1/travel/bike/${req.body.bikeId}?apiKey=${apiKey}`
     })
     .then(response => {
-        //console.log(response.data.data);
+        //console.log(city);
         rentQueue();
-        res.render('rental', {
-          title: req.body.bikeId,
-          bId: req.body.bikeId,
-          bCrd: req.body.bikeCoords,
-          usr: email
+        stations(city).then(response => {
+            res.render('rental', {
+              title: req.body.bikeId,
+              bId: req.body.bikeId,
+              bCrd: req.body.bikeCoords,
+              usr: email,
+              dataPack: response
+            });
         });
     })
     .catch(error => {
@@ -134,10 +140,10 @@ router.post('/map', function(req, res) {
   }
 });
 
-//END RENTAL CALL
+//RENTAL CALL END
 router.post('/rental', function(req, res) {
   if(token != null) {
-    console.log(req.body);
+    //console.log(req.body);
     axios({
       method: 'delete',
       headers: {
@@ -150,41 +156,61 @@ router.post('/rental', function(req, res) {
         res.redirect('/');
     })
     .catch(error => {
-        console.log(error.response);
-        res.redirect('/');
+        if(error.response !== undefined) {
+            res.render('index', {msg: error.response.data.errors.title});
+        } else {
+            res.render('index', {msg: "Server down!"});
+        }
     });
+
   } else {
       res.redirect('/');
   }
 });
 
-
-function stations(cityid){
-  request(`${apiAdr}/v1/city/${cityid}/station?apiKey=${apiKey}`, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var data = JSON.parse(body);
-      console.log(data);
-    } else {
-      console.log('Api not available');
-    }
+// USE CITYID FROM USER TO GET STATIONS FOR ACTIVE RENTAL
+async function stations(cityId){
+  var result = await axios({
+    method: 'get',
+    headers: {
+        "x-access-token": token
+    },
+    url: `${apiAdr}/v1/city/${cityId}/station?apiKey=${apiKey}`
   })
+  .then(response => {
+      //console.log(response.data);
+      return response.data;
+      //return response.data.data.cityid;
+  })
+  .catch(error => {
+      console.log("Error requesting user.");
+      //return "Error requesting user.";
+  });
+  return result;
 }
 
-
-function cities(){
-  request(`${apiAdr}/v1/city?apiKey=${apiKey}`, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var data = JSON.parse(body);
-      //getUserLocation();
-      data.data.forEach(function(city) {
-          console.log(city.name);
-      })
-    } else {
-      console.log('Api not available');
-    }
+// GET CITY ID FROM USER AFTER LOGIN
+async function getUser(userId){
+  var result = await axios({
+    method: 'get',
+    headers: {
+        "x-access-token": token
+    },
+    url: `${apiAdr}/v1/auth/customer/${userId}?apiKey=${apiKey}`
   })
+  .then(response => {
+      //console.log(response.data.data.cityid);
+      return response.data.data.cityid;
+      //return response.data.data.cityid;
+  })
+  .catch(error => {
+      console.log("Error requesting user.");
+      //return "Error requesting user.";
+  });
+  return result;
 }
 
+// CHECK IF SERVER IS UP AND AVAILABLE OTHERWISE USE DOCKERSERVER
 function serverUp(){
   request(`${apiAdr}/v1/city?apiKey=${apiKey}`, function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -197,22 +223,7 @@ function serverUp(){
   })
 }
 
-function userRequest(userId) {
-  axios({
-    method: 'get',
-    headers: {
-        "x-access-token": token
-    },
-    url: `${apiAdr}/v1/travel/rented?apiKey=${apiKey}`
-  })
-  .then(response => {
-      console.log(response.data);
-  })
-  .catch(error => {
-      console.log(error.response);
-  });
-}
-
+//UPDATE RENT QUEUE IN ORDER TO RETURN BIKE
 function rentQueue(){
   axios({
     method: 'get',
@@ -228,8 +239,5 @@ function rentQueue(){
       console.log(error.response);
   });
 }
-
-/*/v1/travel/rented*/
-
 
 module.exports = router;

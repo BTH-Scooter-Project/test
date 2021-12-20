@@ -11,7 +11,7 @@ block content
           div#map.map
             script.
               timer();
-              crtMap2(#{bCrd});
+              crtMap2(#{bCrd}, !{JSON.stringify(dataPack)});
               //console.log(#{bCrd});
       form(method="POST", action="/rental")
         h1.bikeId= bId
