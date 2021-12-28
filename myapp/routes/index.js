@@ -8,13 +8,14 @@ var apiKey = "90301a26-894c-49eb-826d-ae0c2b22a405";
 var token = null;
 var email = null;
 var city = null;
-//var userId = null;
+var userId = null;
 
 serverUp();
 
 // GET LOGIN PAGE
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express'});
+  var title = "Home";
+  res.render('index', { title: title});
 });
 
 // GET REGISTER PAGE
@@ -66,6 +67,7 @@ router.post('/', function(req, res) {
       //console.log(response.data.data.id);
       token = response.data.data.token;
       email = response.data.data.user;
+      userId = response.data.data.id;
       getUser(response.data.data.id).then(response => {
         city = response;
         res.redirect('/map')});
@@ -118,12 +120,14 @@ router.post('/map', function(req, res) {
       url: `${apiAdr}/v1/travel/bike/${req.body.bikeId}?apiKey=${apiKey}`
     })
     .then(response => {
-        //console.log(city);
         rentQueue();
+        //console.log(token);
         stations(city).then(response => {
             res.render('rental', {
               title: req.body.bikeId,
               bId: req.body.bikeId,
+              cId: userId,
+              tkn: token,
               bCrd: req.body.bikeCoords,
               usr: email,
               dataPack: response

@@ -1,3 +1,5 @@
+const xhttp = new XMLHttpRequest();
+
 var map = null;
 //CREATING MAP FUNCTION
 function crtmap(coords=[56.181932, 15.590525]) {
@@ -13,22 +15,14 @@ function success(pos){
     addYou([crd.latitude, crd.longitude]);
 }
 
+// ADD CUSTOMER POSITION
 function addYou(pos){
     //orangeIcon(pos);
     L.marker(pos).addTo(map)
       .bindPopup('Your position.');
-/*
-    var circle = L.circle(pos, {
-        color: 'blue',
-        fillColor: 'blue',
-        fillOpacity: 0.5,
-        radius: 20
-    }).addTo(map);
-*/
-    //addTempBikes();
-    //console.log(document.getElementById("map"));
 }
 
+// CREATE FIRST MAP
 function crtMap(dataPack=null) {
     crtmap();
     navigator.geolocation.getCurrentPosition(success);
@@ -50,16 +44,17 @@ function customer(pos){
     }).addTo(map);
 }
 
-function crtMap2(lat, long, dataPack) {
+//CREATE MAP FOR CURRENT RENTAL
+function crtMap2(lat, long, dataPack, bId, cId, tkn) {
     //console.log(`[${lat}, ${long}]`);
     crtmap([lat, long]);
-    console.log(dataPack.data);
     addStations(dataPack.data);
-    L.marker([lat, long]).addTo(map)
+    var marker = L.marker([lat, long]).addTo(map)
       .bindPopup('Your position.');
+    setInterval(_testRunner, 6000, lat, long, marker, bId, cId, tkn);
 }
 
-
+// TEST BIKE FUNCTION
 function addTempBikes() {
     var bikes = {};
     //var image = "scooter.jpg";
@@ -77,6 +72,7 @@ function addTempBikes() {
     console.log(bikes['1']);
 }
 
+// Not used.
 function addBikes2(dataPack) {
     var bikes = {};
     var id = 0;
@@ -101,6 +97,7 @@ function addBikes2(dataPack) {
     map.addLayer(markers);
 }
 
+// ADD STATIONS
 function addStations(dataPack) {
     var stations = {};
     var id = 0;
@@ -124,6 +121,7 @@ function addStations(dataPack) {
     map.addLayer(markers);
 }
 
+// ADD BIKES FROM API
 function addBikes(dataPack) {
     var bikes = {};
     var id = 0;
@@ -131,7 +129,7 @@ function addBikes(dataPack) {
     //console.log(dataPack.data);
 
     dataPack.data.forEach(function(item){
-        if(item.status === 'vacant'){
+        if(item.status === 'vacant' && item.gps_lat !== null && item.gps_lon !== null){
             var latLng = L.latLng(item.gps_lat, item.gps_lon);
             var image = `<img class=qr src=/images/${item.image}>`;
             markers.addLayer(L.marker(latLng, {name: item.name,
@@ -148,6 +146,7 @@ function addBikes(dataPack) {
 
 var activeClicked = null;
 
+// BIKE CLICKED => SEND VALUES
 function bikeClick(e) {
     console.log(this.options);
     var temp = this.options.coords.toString();
@@ -163,6 +162,8 @@ function bikeClick(e) {
     document.getElementById('rentBtn').hidden=false;
 }
 
+
+//MADE FOR TESTING BIKES (addTempBikes)
 function onClick(e) {
     console.log(this.options);
     activeClicked = this.options.id;
@@ -176,6 +177,7 @@ function onClick(e) {
     //document.getElementById('bike_Img').innerHTML = "<img class=orange src=images/"+this.options.img+">";
 }
 
+//TESTING TO ADD DIFFERENT MARKER FOR USER
 function orangeIcon(pos){
     var orangeIcon = L.icon({
         iconUrl: 'images/orangeIcon.png'
@@ -208,4 +210,40 @@ function ranBike() {
         arr.push([i, (lat+Math.random() * (0.019 - 0.001)).toFixed(4), (lng+Math.random() * (0.039 - 0.001)).toFixed(4)]);
     }
     return arr;
+}
+
+function _testRunner(lat, lng, marker, bId, cId, tkn) {
+  const apiAdr = "http://localhost:1337";
+  const apiKey = "90301a26-894c-49eb-826d-ae0c2b22a405";
+  //console.log(tkn);
+  xhttp.onload = function() {
+    if (xhttp.readyState === xhttp.DONE) {
+        if (xhttp.status === 200) {
+            var data = xhttp.responseText;
+            var jsonData = JSON.parse(data);
+            console.log(jsonData.data);
+            jsonData.data.forEach(ele => {
+                if(ele.bikeid === bId && ele.gps_lat !== undefined && ele.gps_lat !== undefined) {
+                    if(ele.gps_lat !== null && ele.gps_lat !== null) {
+                        console.log("Updated: ", [ele.gps_lat, ele.gps_lon]);
+                        marker.setLatLng([ele.gps_lat, ele.gps_lon]).update();
+                    } else {
+                        console.log("coodinates null.");
+                    }
+                } else {
+                    if (ele.bikeid === bId) {
+                      console.log("Not moving: ", [ele.gps_lat_start, ele.gps_lon_start]);
+                    }
+                }
+            });
+        }
+    }
+  }
+  xhttp.open("GET", `${apiAdr}/v1/auth/customer/${cId}/rented?apiKey=${apiKey}`);
+  xhttp.setRequestHeader('x-access-token', tkn);
+  xhttp.send();
+  //marker.setLatLng([lat2, lng2]).update();
+  //tempForTesting += 0.001;
+  // /v1/city/{cityid}/bike/{bikeid}/rented
+
 }

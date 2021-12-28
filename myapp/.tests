@@ -37,3 +37,16 @@ router.post('/', function(req, res) {
   })
 });
 */
+
+jsonData.forEach(ele => {
+  if (ele.bikeid === bId) {
+    console.log(ele.bikeid);
+    if (ele.gps_lat !== null && ele.gps_lon !== null) {
+      console.log("updated!");
+      marker.setLatLng([jsonData.data.gps_lat, jsonData.data.gps_lon]).update();
+    } else {
+      console.log("no update.");
+      marker.setLatLng([ele.gps_lat_start, ele.gps_lon_start]).update();
+    }
+  }
+});
