@@ -221,18 +221,20 @@ function _testRunner(lat, lng, marker, bId, cId, tkn) {
         if (xhttp.status === 200) {
             var data = xhttp.responseText;
             var jsonData = JSON.parse(data);
-            console.log(jsonData.data);
+            //console.log(jsonData.data);
             jsonData.data.forEach(ele => {
                 if(ele.bikeid === bId && ele.gps_lat !== undefined && ele.gps_lat !== undefined) {
                     if(ele.gps_lat !== null && ele.gps_lat !== null) {
-                        console.log("Updated: ", [ele.gps_lat, ele.gps_lon]);
+                        //console.log("Updated: ", [ele.gps_lat, ele.gps_lon]);
                         marker.setLatLng([ele.gps_lat, ele.gps_lon]).update();
+                        map.flyTo([ele.gps_lat, ele.gps_lon]);
+                        document.getElementsByClassName('bikeCoords')[0].innerHTML = [parseFloat(ele.gps_lat).toFixed(6), parseFloat(ele.gps_lon).toFixed(6)];
                     } else {
                         console.log("coodinates null.");
                     }
                 } else {
                     if (ele.bikeid === bId) {
-                      console.log("Not moving: ", [ele.gps_lat_start, ele.gps_lon_start]);
+                        console.log("Not moving: ", [ele.gps_lat_start, ele.gps_lon_start]);
                     }
                 }
             });
