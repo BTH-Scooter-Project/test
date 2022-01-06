@@ -18,7 +18,7 @@ describe('Core controller unit tests:', function() {
         done();
     });
 
-    describe('Loading the homepage', function() {
+    describe('Loading the home-page', function() {
         it('should return 200 from GET /', function(done) {
             request
                 .get('/')
@@ -27,14 +27,27 @@ describe('Core controller unit tests:', function() {
         });
     });
 
-    describe('Loading map', function() {
-        it('If logged in create map page', function(done) {
+    describe('Loading the register-page', function() {
+        it('should return 200 from GET /register', function(done) {
             request
-                .get('/map')
+                .get('/register')
                 .expect('Content-Type', 'text/html; charset=utf-8')
                 .expect(200, done);
         });
     });
+
+    describe('Loading map', function() {
+        it('Test login -> return 302 GET /map', function(done) {
+            request
+                .post('/')
+                .send({username: 'test@test.se', password: 'test123'})
+                .expect(302)
+                .expect('Location', '/map')
+                .end(done)
+        });
+    });
+
+
 
     after(function(done) {
         done();

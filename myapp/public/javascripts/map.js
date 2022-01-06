@@ -247,5 +247,4 @@ function _testRunner(lat, lng, marker, bId, cId, tkn) {
   //marker.setLatLng([lat2, lng2]).update();
   //tempForTesting += 0.001;
   // /v1/city/{cityid}/bike/{bikeid}/rented
-
 }

@@ -10,7 +10,7 @@ var email = null;
 var city = null;
 var userId = null;
 
-serverUp();
+//serverUp();
 
 // GET LOGIN PAGE
 router.get('/', function(req, res, next) {
@@ -53,7 +53,7 @@ router.post('/register', function(req, res) {
 
 //LOGIN CALL
 router.post('/', function(req, res) {
-  //console.log(req.body.username);
+  console.log(req.body.username);
   var temp = JSON.stringify({email: req.body.email})
   axios({
     method: 'post',
