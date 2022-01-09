@@ -2,13 +2,10 @@ var request = require('supertest');
 const express = require('express');
 
 const app = express();
-var apiAdr = "http://localhost:1337";
-var apiKey = "90301a26-894c-49eb-826d-ae0c2b22a405";
-var token = null;
 
-
+/* eslint-disable no-unused-vars, no-undef */
 app.get('/', function(req, res) {
-  res.status(200);
+    res.status(200);
 });
 
 describe('Core controller unit tests:', function() {
@@ -43,7 +40,7 @@ describe('Core controller unit tests:', function() {
                 .send({username: 'test@test.se', password: 'test123'})
                 .expect(302)
                 .expect('Location', '/map')
-                .end(done)
+                .end(done);
         });
     });
 
@@ -53,3 +50,4 @@ describe('Core controller unit tests:', function() {
         done();
     });
 });
+/* eslint-disable no-unused-vars, no-undef */
