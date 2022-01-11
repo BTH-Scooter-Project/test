@@ -28,5 +28,4 @@ jobs:
     - name: NPM install, build and test
       run: |
         npm install -g @mockoon/cli
-        mockoon-cli start --data Mockoon-api.json --port 1337
         npm run scrutinizer-test
