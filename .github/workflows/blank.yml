@@ -28,4 +28,5 @@ jobs:
     - name: NPM install, build and test
       run: |
         npm install -g @mockoon/cli
+        npm run mock
         npm run scrutinizer-test
