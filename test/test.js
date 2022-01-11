@@ -54,7 +54,7 @@ describe('Core controller unit tests:', function() {
                 .post('/')
                 .send({username: "te@test.com", password: "tes432"})
                 .end((err, res) => {
-                    //console.log(res)
+                    res.status.should.be.equal(302);
                     if (err) {
                       throw err;
                     }
