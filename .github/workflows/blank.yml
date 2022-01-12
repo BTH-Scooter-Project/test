@@ -40,8 +40,8 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.1.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
-        gistID: <your_gist_id>
-        filename: <your_repo>_coverage.json
+        gistID: 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
+        filename: test_coverage.json
         label: coverage
         message: ${{ env.COVERAGE }}
         namedLogo: jest
