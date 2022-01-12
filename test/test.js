@@ -48,21 +48,6 @@ describe('Core controller unit tests:', function() {
         });
     });
 
-    describe('Login wrong password', function() {
-        it('should return 400 from GET /', function(done) {
-            request(server)
-                .post('/')
-                .send({username: "te@test.com", password: "tes432"})
-                .end((err, res) => {
-                    res.status.should.be.equal(302);
-                    if (err) {
-                      throw err;
-                    }
-                    done();
-                });
-        });
-    });
-
     describe('Loading the register-page', function() {
         it('should return 200 from GET /register', function(done) {
             request(server)
@@ -79,6 +64,83 @@ describe('Core controller unit tests:', function() {
                 });
         });
     });
+
+    describe('Registering through the register-page', function() {
+        it('should redirect 302 from post /register', function(done) {
+            request(server)
+                .post('/register')
+                .send({email: "test1@test.com", password: "test123",
+                  firstname: "Test", lastname: "Testsson", cityid: 2})
+                .end((err, res) => {
+                    res.status.should.be.equal(302);
+                    if (err) {
+                      throw err;
+                    }
+                    done();
+                });
+        });
+    });
+
+    describe('Registering through the register-page', function() {
+        it('should redirect 302 from post /register', function(done) {
+            request(server)
+                .post('/register')
+                .send({email: "test1@test.com", password: "test123",
+                  firstname: "Test", lastname: "Testsson", cityid: 2})
+                .end((err, res) => {
+                    res.status.should.be.equal(302);
+                    if (err) {
+                      throw err;
+                    }
+                    done();
+                });
+        });
+    });
+
+    describe('Bikes rental the map-page', function() {
+        it('should render 200 from get /map', function(done) {
+            request(server)
+                .get('/map')
+                .end((err, res) => {
+                    res.status.should.be.equal(200);
+                    if (err) {
+                      throw err;
+                    }
+                    done();
+                });
+        });
+    });
+
+    describe('Bike rented call', function() {
+        it('should render 200 from post /map', function(done) {
+            request(server)
+                .post('/map')
+                .send({bikeId: "1bike"})
+                .end((err, res) => {
+                    res.status.should.be.equal(200);
+                    if (err) {
+                      throw err;
+                    }
+                    done();
+                });
+        });
+    });
+
+    describe('Bike end rent call', function() {
+        it('should render 302 from post /rental', function(done) {
+            request(server)
+                .post('/rental')
+                .send({bikeId: "1bike"})
+                .end((err, res) => {
+                    res.status.should.be.equal(302);
+                    if (err) {
+                      throw err;
+                    }
+                    done();
+                });
+        });
+    });
+
 
     after(function(done) {
         done();

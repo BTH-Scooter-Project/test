@@ -126,6 +126,202 @@
                         "enabled": true,
                         "randomResponse": false,
                         "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "c9449045-d28d-4367-924d-1637d3a60f4a",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "v1/auth/customer",
+                        "responses": [
+                            {
+                                "uuid": "27ee88f5-e7f9-46a8-8466-bd129b561686",
+                                "body": "{\n    \"data\":{\n      \"Registered.\"\n    }\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [
+                                    {
+                                        "target": "body",
+                                        "modifier": "email",
+                                        "value": "email",
+                                        "operator": "equals"
+                                    },
+                                    {
+                                        "target": "body",
+                                        "modifier": "password",
+                                        "value": "password",
+                                        "operator": "equals"
+                                    },
+                                    {
+                                        "target": "body",
+                                        "modifier": "firstname",
+                                        "value": "firstname",
+                                        "operator": "equals"
+                                    },
+                                    {
+                                        "target": "body",
+                                        "modifier": "lastname",
+                                        "value": "lastname",
+                                        "operator": "equals"
+                                    },
+                                    {
+                                        "target": "body",
+                                        "modifier": "cityid",
+                                        "value": "cityid",
+                                        "operator": "equals"
+                                    }
+                                ],
+                                "rulesOperator": "AND",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "602ad4b4-8ac5-48ca-9cca-a9680dff28f3",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "v1/city/2/bike",
+                        "responses": [
+                            {
+                                "uuid": "cbd02fbf-da27-4366-92b9-63fc1811a6fd",
+                                "body": "{\n    \"data\":{\n        \"status\": \"vacant\",\n        \"gps_lat\": \"51.42141\",\n        \"gps_lon\": \"14.341515\",\n        \"image\": \"prettyFly.jpg\",\n        \"name\": \"1bike\",\n        \"description\": \"text\",\n        \"battery_level\": \"50000\"\n    }\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "5b2a012c-89f2-4f8c-8638-2d2565de1ad9",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "v1/travel/rented",
+                        "responses": [
+                            {
+                                "uuid": "4452c094-3d01-4706-a5c3-1b93047d5e51",
+                                "body": "{\n    \"data\": {\n        \"Rent queue updated.\"\n    }\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "x-access-token",
+                                        "value": "mockTest"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "2d35da40-6e63-42e4-bbcd-0986af064b2a",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "v1/travel/bike/1bike",
+                        "responses": [
+                            {
+                                "uuid": "44b69feb-4114-42a0-ab39-c56a5a3278fd",
+                                "body": "{\n   \"data\": {\n      \"Rented bike!\"\n   }\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "x-access-token",
+                                        "value": "mockTest"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "89389fe3-f3c4-4d24-9d44-0c15386487c0",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "v1/city/2/station",
+                        "responses": [
+                            {
+                                "uuid": "1997e8ec-b6b1-48f2-99e4-b9f32eea9803",
+                                "body": "{\n    \"data\": {\n        \"Stations..\"\n    }\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "x-access-token",
+                                        "value": "mockTest"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "ce81c96d-8a89-4010-aa67-1c1b38e9a3ea",
+                        "documentation": "",
+                        "method": "delete",
+                        "endpoint": "v1/travel/bike/1bike",
+                        "responses": [
+                            {
+                                "uuid": "fe10ed2c-31ba-43c7-b667-075b36313e87",
+                                "body": "{\n    \"data\": {\n        \"Rental ended.\"\n    }\n}\n",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
                     }
                 ],
                 "proxyMode": false,
