@@ -44,6 +44,5 @@ jobs:
         filename: test_coverage.json
         label: coverage
         message: ${{ env.COVERAGE }}
-        namedLogo: jest
         color: blue
         logoColor: lightblue
