@@ -45,4 +45,3 @@ jobs:
         label: coverage
         message: ${{ env.COVERAGE }}
         color: blue
-        logoColor: lightblue
