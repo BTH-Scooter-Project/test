@@ -33,7 +33,7 @@ jobs:
     - if: ${{ matrix.node-version == '14.x' }}
       name: Get Coverage for badge
       run: |
-        SUMMARY="$(npm github-test -- --coverageReporters='text-summary' | tail -2 | head -1)"
+        SUMMARY="$(npm github-test | tail -3 | head -1)"
         TOKENS=($SUMMARY)
         echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
 
