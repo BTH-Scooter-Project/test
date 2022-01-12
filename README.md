@@ -6,4 +6,4 @@ npm start
 [![Codiga Build Status](https://api.codiga.io/project/30678/score/svg)
 [![Codiga Code Quality](https://api.codiga.io/project/30678/status/svg)
 
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Orkanen/b5a0b56c3eea502e4b7cba96ca5c4159/raw/test__pull_##.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Orkanen/b5a0b56c3eea502e4b7cba96ca5c4159/raw/test_coverage.json)
