@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+/* eslint-disable no-unused-vars, no-undef */
 var request = require('supertest');
 const express = require('express');
 const server = require('../app.js');
@@ -10,8 +11,6 @@ const app = express();
 //var expect = chai.expect;    // Using Expect style
 var should = chai.should();  // Using Should style
 var xToken = "mockTest";
-
-/* eslint-disable no-unused-vars, no-undef */
 
 
 describe('Core controller unit tests:', function() {
@@ -25,7 +24,7 @@ describe('Core controller unit tests:', function() {
                     res.text.should.match(/name="password"/);
                     res.text.should.match(/action="[/]"/);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -41,7 +40,7 @@ describe('Core controller unit tests:', function() {
                     res.status.should.be.equal(302);
                     res.text.should.be.equal("Found. Redirecting to /map");
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -58,7 +57,7 @@ describe('Core controller unit tests:', function() {
                     res.text.should.match(/name="password"/);
                     res.text.should.match(/action="[/]register"/);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -70,11 +69,11 @@ describe('Core controller unit tests:', function() {
             request(server)
                 .post('/register')
                 .send({email: "test1@test.com", password: "test123",
-                  firstname: "Test", lastname: "Testsson", cityid: 2})
+                    firstname: "Test", lastname: "Testsson", cityid: 2})
                 .end((err, res) => {
                     res.status.should.be.equal(302);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -86,11 +85,11 @@ describe('Core controller unit tests:', function() {
             request(server)
                 .post('/register')
                 .send({email: "test1@test.com", password: "test123",
-                  firstname: "Test", lastname: "Testsson", cityid: 2})
+                    firstname: "Test", lastname: "Testsson", cityid: 2})
                 .end((err, res) => {
                     res.status.should.be.equal(302);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -104,7 +103,7 @@ describe('Core controller unit tests:', function() {
                 .end((err, res) => {
                     res.status.should.be.equal(200);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -119,7 +118,7 @@ describe('Core controller unit tests:', function() {
                 .end((err, res) => {
                     res.status.should.be.equal(200);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });
@@ -134,7 +133,7 @@ describe('Core controller unit tests:', function() {
                 .end((err, res) => {
                     res.status.should.be.equal(302);
                     if (err) {
-                      throw err;
+                        throw err;
                     }
                     done();
                 });

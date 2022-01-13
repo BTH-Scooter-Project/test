@@ -116,7 +116,7 @@ router.get('/map', function(req, res) {
 //RENTAL CALL START
 router.post('/map', function(req, res) {
     if (token != null) {
-        //console.log(req.body.bikeId);
+        console.log(req.body.bikeId);
         axios({
             method: 'post',
             headers: {
