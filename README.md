@@ -14,7 +14,7 @@ npm start
 REST-API Locally
 ==========
 Connection to sqlite database established in db/database.js. For implemented routes
-with correct database see https://bth-ramverk-grupp7.atlassian.net/wiki/spaces/BTHRAMVERK/pages/17989635/REST-API
+with correct database see https://github.com/BTH-Scooter-Project/api.git
 
 REST-API
 ==========
