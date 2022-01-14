@@ -6,4 +6,12 @@
 
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Orkanen/b5a0b56c3eea502e4b7cba96ca5c4159/raw/2d9ef23e665e38427d2c711903b3644db925d127/test_coverage.json)
 
+run locally
+==========
+npm install
 npm start
+
+REST-API
+==========
+Connection to sqlite database established in db/database.js. For implemented routes
+with correct database see https://bth-ramverk-grupp7.atlassian.net/wiki/spaces/BTHRAMVERK/pages/17989635/REST-API
